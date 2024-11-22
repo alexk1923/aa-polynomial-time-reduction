@@ -1,0 +1,54 @@
+       myWriter.write("Minim un nod pe fiecare pozitie\n");
+        for(int idx = 1; idx <= k; idx ++ ) {
+            for(int v = 1; v <= n; v++) { // minim un nod pe pozitia idx
+                myWriter.write(y[v][idx] + " ");
+            }
+            myWriter.write("0\n");
+        }
+
+        myWriter.write("minim unu sa fie in clica din alea cu legatura");
+        for(int v = 1; v <= n; v++) {
+            for (int w = v + 1; w <= n; w++) {
+                if (links[v][w] == 1) {
+                    if(v != w) {
+                        for(int r = 1; r<= k; r++) {
+                            myWriter.write(y[v][r] + " " + y[w][r] + " ");
+                        }
+                        myWriter.write("0\n");
+                    }
+                }
+            }
+        }
+
+
+        myWriter.write("Trebuie ca din fiecare pereche de noduri care nu au legatura MAXIM unul sa fie in clica\n");
+        for(int v = 1; v <= n; v++) { // cautam nodurile care nu au legaturi
+            for(int w = v + 1; w <= n; w++ ) {
+                if(links[v][w] == 0) {
+                    for(int idx = 1; idx <= k; idx++) { // ma duc pe linia corespunzatoare fiecarui nod din pereche
+                        for(int sec_idx = 1; sec_idx <= k; sec_idx++) {
+                            if(idx != sec_idx)
+                                myWriter.write(-y[v][idx] + " " + -y[w][sec_idx] + " 0\n");
+                        }
+                    }
+                }
+            }
+        }
+
+
+        myWriter.write("Verific ca un anumit nod sa nu fie si pe indexul p si pe indexul q\n");
+        for(int i = 1; i <= n; i++) { // un nod nu poate fi si al p-ulea si al q-lea (ca index in clica)
+            for(int idx = 1; idx <= k; idx++) {
+                for(int sec_idx = idx + 1; sec_idx <= k; sec_idx++) {
+                    myWriter.write(-y[i][idx] + " " + -y[i][sec_idx] + " 0\n");
+                }
+            }
+        }
+
+        myWriter.write("Verific ca 2 noduri diferite sa nu se afle pe aceeasi pozitie\n");
+        for(int idx = 1; idx <= k; idx++) { // doua noduri distincte nu pot fi pe aceeasi pozitie
+            for(int v = 1; v <= n; v++) { // primul nod
+                for(int w = v + 1; w <= n; w++) // al doilea nod
+                myWriter.write(-y[v][idx] + " " + -y[w][idx] + " 0\n"); // oricare 2 noduri nu pot fi pe aceeasi pozitie
+            }
+        }
